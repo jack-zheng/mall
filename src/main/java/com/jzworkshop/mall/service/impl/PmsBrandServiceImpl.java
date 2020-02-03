@@ -6,9 +6,11 @@ import com.jzworkshop.mall.mbg.model.PmsBrand;
 import com.jzworkshop.mall.mbg.model.PmsBrandExample;
 import com.jzworkshop.mall.service.PmsBrandService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class PmsBrandServiceImpl implements PmsBrandService {
     @Autowired
     private PmsBrandMapper brandMapper;
