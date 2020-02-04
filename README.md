@@ -137,3 +137,20 @@ Caused by: java.lang.IllegalArgumentException: Result Maps collection already co
 > 服务器起了，也面也能出来，但是文档没有 controller 相关的信息
 
 这是由于我包名和作者的不一样，在配置 Swagger2Config 文件的时候没有注意。修改后成功生成文档, 功能正常，nice。
+
+## Redis的安装和启动
+
+brew 有 redis 安装包，可以直接通过 `brew install redis` 安装，安装之后会有操作提示
+
+```txt
+To have launchd start redis now and restart at login:
+  brew services start redis
+Or, if you don't want/need a background service you can just run:
+  redis-server /usr/local/etc/redis.conf
+```
+
+不知道是系统原因还是咋地，装完之后 brew services 命令不能用了，害得我重新装了一遍 brew，卸载brew 会把之前通过它安装的软件都卸载掉。。。。还在重装之后都能work。
+
+这一章难度不大，按照提示来，基本上很快就能做完
+
+## mall整合SpringSecurity和JWT实现认证和授权（一）
