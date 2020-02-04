@@ -154,3 +154,34 @@ Or, if you don't want/need a background service you can just run:
 这一章难度不大，按照提示来，基本上很快就能做完
 
 ## mall整合SpringSecurity和JWT实现认证和授权（一）
+
+作者没有在文档中说明 model 怎么生成的，不过如果之前的章节都充分理解了，那么很容易猜到是在 generatorConfig.xml 里面添加了对应的表，逆向生成的，在进行这个章节内容之前先运行一下 mbg 生成所需的class
+
+新出现了一个名次 dto, 和 dao 比较接近， dao 是 data access object, 数据访问对象。dto 是 data transfer object 数据传输对象
+
+> 启动服务器失败报错, 猜测是 JwtAuthenticationTokenFilter 里面 jwtTokenUtil 里的什么东西有问题
+
+```log
+Caused by: java.lang.IllegalArgumentException: Could not resolve placeholder 'jwt.secret' in value "${jwt.secret}"
+```
+
+作者忘了说明需要在配置文件中添加 jwt 的config, 搜素了git 才发现的
+
+> 修完之后又报错了, 应该是我之前写code 的时候未解决的疑问，dao 只写了接口，没有写实现
+
+```log
+Description:
+
+Field adminRoleRelationDao in com.jzworkshop.mall.service.impl.UmsAdminServiceImpl required a bean of type 'com.jzworkshop.mall.dao.UmsAdminRoleRelationDao' that could not be found.
+
+The injection point has the following annotations:
+	- @org.springframework.beans.factory.annotation.Autowired(required=true)
+```
+
+解决方案应该是在 resource 下面添加对应的实现，看格式应该是手动写的
+
+尝试失败，还是会报错，然后又找找找，突然想到，这种东西可能还加了一些db 配置，然后去 MyBatisConfig 里面看了下果然少了一个 dao 的 map。启动成功。
+
+值得一题的是，我看到手写的这个 mapper 里面有 `<select id="getPermissionList" resultMap="com.jzworkshop.mall.mbg.mapper.UmsPermissionMapper.BaseResultMap">` 这样的设定，反复对比了code也没有在UmsPermissionMapper 里找到这个 BaseResultMap, 最后在对应的 xml 里找到了定义
+
+功能基本完成了，但是也就走了一把，知道了大概要配点什么，用什么工具，入过真要自己去写一个新的应用实现什么功能的话，差的还有点远，需要自己再做个什么东西实践一下才行，不过至少走完之后你可以有个数
