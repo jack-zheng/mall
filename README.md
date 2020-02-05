@@ -14,6 +14,8 @@ mbg: mybatis generator, 一款 mybatis 插件，自动生成 model，dao 和 map
 | MacOS | 10.15 Catalina|
 | Windows | ？|
 
+一些思考：图片存在文件系统里面 FTS 什么的
+
 ## mall整合SpringBoot+MyBatis搭建基本骨架
 
 ### DB setup MacOS
@@ -185,3 +187,35 @@ The injection point has the following annotations:
 值得一题的是，我看到手写的这个 mapper 里面有 `<select id="getPermissionList" resultMap="com.jzworkshop.mall.mbg.mapper.UmsPermissionMapper.BaseResultMap">` 这样的设定，反复对比了code也没有在UmsPermissionMapper 里找到这个 BaseResultMap, 最后在对应的 xml 里找到了定义
 
 功能基本完成了，但是也就走了一把，知道了大概要配点什么，用什么工具，入过真要自己去写一个新的应用实现什么功能的话，差的还有点远，需要自己再做个什么东西实践一下才行，不过至少走完之后你可以有个数
+
+## mall整合SpringTask实现定时任务
+
+按着教程走就完事儿了，5分钟搞定
+
+## mall整合Elasticsearch实现商品搜索
+
+brew install elasticsearch kibana, 安装log
+
+```log
+To have launchd start elasticsearch now and restart at login:
+  brew services start elasticsearch
+Or, if you don't want/need a background service you can just run:
+  elasticsearch
+
+To have launchd start kibana now and restart at login:
+  brew services start kibana
+Or, if you don't want/need a background service you can just run:
+  kibana
+```
+
+elasticsearch 启动失败，报错
+
+```log
+ERROR: Cluster name [elasticsearch_jack] subdirectory exists in data paths [/usr/local/var/lib/elasticsearch/elasticsearch_jack].
+```
+
+查了下好像是因为以前安装过 elasticsearch, 新版的目录结构变了，直接把老的文件夹删掉就行了，就是log 里面出现的那个。访问 http://localhost:9200/ 以验证安装
+
+访问 http://localhost:5601/ 以验证 kibana 的安装情况
+
+后台运行的情况下可以查看 `/usr/local/var/log/` 文件夹获取对应的 log
