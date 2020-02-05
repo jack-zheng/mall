@@ -219,3 +219,20 @@ ERROR: Cluster name [elasticsearch_jack] subdirectory exists in data paths [/usr
 访问 http://localhost:5601/ 以验证 kibana 的安装情况
 
 后台运行的情况下可以查看 `/usr/local/var/log/` 文件夹获取对应的 log
+
+> 按教程走完，启动报错
+
+```log
+...
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'esProductRepository': Invocation of init method failed; nested exception is org.springframework.data.mapping.MappingException: Couldn't find PersistentEntity for type class java.lang.Object!
+...
+Caused by: org.springframework.data.mapping.MappingException: Couldn't find PersistentEntity for type class java.lang.Object!
+```
+
+查看代码发现 'EsProductRepository extends ElasticsearchRepository<EsProduct, Long>' 定义的时候忘记添加范型了
+
+> 启动后，调用 API 失败， 配置有问题
+> 1.端口是9300，而不是9200，9300 是 Java 客户端的端口。9200是支持 Restful HTTP的端口
+> cluster-name: elasticsearch 有问题，需要和 http://127.0.0.1:9200/ 这个页面上的 name 保持一致
+
+这些都修改完后就可以正常运行了
