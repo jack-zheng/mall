@@ -236,3 +236,49 @@ Caused by: org.springframework.data.mapping.MappingException: Couldn't find Pers
 > cluster-name: elasticsearch 有问题，需要和 http://127.0.0.1:9200/ 这个页面上的 name 保持一致
 
 这些都修改完后就可以正常运行了
+
+## mall整合Mongodb实现文档操作
+
+参考[官方文档](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)进行安装
+
+```bash
+brew tap mongodb/brew
+
+brew install mongodb-community@4.2
+
+-- run as a macOS service
+brew services start mongodb-community@4.2
+
+--To run MongoDB manually as a background process
+mongod --config /usr/local/etc/mongod.conf --fork
+```
+
+```log
+To have launchd start mongodb/brew/mongodb-community now and restart at login:
+  brew services start mongodb/brew/mongodb-community
+Or, if you don't want/need a background service you can just run:
+  mongod --config /usr/local/etc/mongod.conf
+```
+
+type `mongo` to test install.
+
+按着教程走，完成，没什么波澜
+
+## mall整合RabbitMQ实现延迟消息
+
+安装应用：`brew install rabbitmq`, 访问 `http://localhost:15672/` 测试安装是否成功。
+
+```log
+Management Plugin enabled by default at http://localhost:15672
+
+Bash completion has been installed to:
+  /usr/local/etc/bash_completion.d
+
+To have launchd start rabbitmq now and restart at login:
+  brew services start rabbitmq
+Or, if you don't want/need a background service you can just run:
+  rabbitmq-server
+```
+
+default account: guest/guest
+
