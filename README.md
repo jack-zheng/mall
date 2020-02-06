@@ -282,3 +282,6 @@ Or, if you don't want/need a background service you can just run:
 
 default account: guest/guest
 
+按教程走，完成的挺顺利的
+
+最后一张离我好像有点远，暂时不看了
